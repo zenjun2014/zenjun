@@ -1,0 +1,47 @@
+<?php
+require_once 'config_db.php';
+
+Class User {
+                public $db;
+
+		public function __construct(){
+			$this->db = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+
+			if(mysqli_connect_errno()) {
+				echo "Error: Could not connect to database.";
+			        exit;
+			}
+		}
+                public $lname;
+                public $fname;
+                public $sex;
+                public $email;
+                public $password;
+                public $cpassword;
+                public $defaultsettings_birthDay;
+                public $address;
+                public $city;
+                public $country;
+                public $zipCode;
+                public $comment;
+                public $code;
+                public $statur;
+                public function user (){
+                    $this->statur= 1;
+                    $this->password = md5($password);
+                    $this->code = substr(md5(rand(1,100)), 15,5);
+                    $this->sql="SELECT * FROM user_db WHERE email='$email'";
+                    $this->check =  $this->db->query($sql) ;
+                    $this->count_row = $check->num_rows;
+        //if the username is not in db then insert to the table
+                    if ($this->count_row == 0){
+                    $this->sql1="INSERT INTO user_db SET lname='$lname',fname='$fname',sex='$sex',email='$email',password='$password',birthday='$defaultsettings_birthDay',address='$address',city='$city',country='$country',zip='$zipCode',comment='$comment',code='$code',statur='$statur'"; 
+            }
+            $this->result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+            return $this->result;
+		}   	
+                }
+                
+                      
+?>
+
